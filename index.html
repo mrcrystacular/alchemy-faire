@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The Mount Shasta Alchemy Faire</title>
+<style>
+  /* ============================================================
+     EDIT YOUR LINKS in the HTML below. Look for href="#REPLACE".
+     Everything between the <!-- ALCHEMISTS START/END --> comments
+     is the roster — copy one block per alchemist.
+     ============================================================ */
+
+  :root{
+    --ink:        #1c2333;   /* deep midnight blue-black, the night sky behind Shasta */
+    --slate:      #2a3a52;   /* the poster's table-cloth blue */
+    --slate-2:    #34496a;
+    --parchment:  #f4ecd8;   /* banner cream */
+    --parchment-2:#e9dcbf;
+    --gold:       #c79a3b;   /* frame gilt */
+    --gold-soft:  #e3c46a;
+    --gold-deep:  #9c742a;
+    --brown:      #5a3e22;   /* the serif lettering brown */
+    --amethyst:   #7b6aa0;
+    --rust:       #b5532e;   /* a warm pop from the corner blooms */
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family: Georgia, 'Times New Roman', serif;
+    color: var(--parchment);
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(199,154,59,0.16), transparent 55%),
+      linear-gradient(180deg, #16203a 0%, var(--ink) 38%, #14101d 100%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    line-height: 1.55;
+    padding: clamp(1rem, 4vw, 3rem) 1rem 4rem;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* faint starfield, the constellation cloth from the round table */
+  body::before{
+    content:"";
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      radial-gradient(1.4px 1.4px at 18% 22%, rgba(227,196,106,0.7), transparent),
+      radial-gradient(1.2px 1.2px at 72% 14%, rgba(227,196,106,0.55), transparent),
+      radial-gradient(1.1px 1.1px at 38% 64%, rgba(227,196,106,0.5), transparent),
+      radial-gradient(1.5px 1.5px at 86% 48%, rgba(227,196,106,0.6), transparent),
+      radial-gradient(1.1px 1.1px at 9% 80%, rgba(227,196,106,0.5), transparent),
+      radial-gradient(1.3px 1.3px at 60% 88%, rgba(227,196,106,0.55), transparent),
+      radial-gradient(1.2px 1.2px at 50% 38%, rgba(227,196,106,0.45), transparent);
+    opacity: .65;
+  }
+
+  .wrap{
+    position: relative; z-index: 1;
+    max-width: 640px; margin: 0 auto;
+  }
+
+  /* ---- The frame ---- */
+  .frame{
+    border: 2px solid var(--gold);
+    border-radius: 14px;
+    padding: clamp(1.4rem, 5vw, 2.8rem);
+    background:
+      linear-gradient(180deg, rgba(42,58,82,0.55), rgba(20,16,29,0.5));
+    box-shadow:
+      0 0 0 6px rgba(20,16,29,0.6),
+      0 0 0 7px rgba(199,154,59,0.35),
+      0 24px 60px rgba(0,0,0,0.55);
+    position: relative;
+  }
+  /* little corner medallions echoing the frame's circles */
+  .frame::before, .frame::after{
+    content:"✦";
+    position:absolute; color: var(--gold-soft);
+    font-size: 1.1rem; opacity: .8;
+  }
+  .frame::before{ top: 8px; left: 12px; }
+  .frame::after{ bottom: 8px; right: 12px; }
+
+  /* ---- Header / banner ---- */
+  .eyebrow{
+    text-align:center;
+    font-size: .74rem; letter-spacing: .42em; text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: .9rem; padding-left:.42em;
+  }
+
+  .banner{
+    background: linear-gradient(180deg, var(--parchment), var(--parchment-2));
+    color: var(--brown);
+    border: 1.5px solid var(--gold-deep);
+    border-radius: 8px;
+    text-align:center;
+    padding: .85rem 1rem;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.5);
+    transform: rotate(-0.6deg);
+  }
+  .banner h1{
+    font-size: clamp(1.5rem, 6.5vw, 2.35rem);
+    letter-spacing: .02em; line-height: 1.05;
+    font-weight: 700;
+  }
+  .subtitle{
+    text-align:center; color: var(--parchment);
+    font-style: italic;
+    font-size: clamp(.98rem, 3.4vw, 1.12rem);
+    margin: 1.15rem auto .35rem; max-width: 30rem;
+  }
+  .meta{
+    text-align:center; color: var(--gold-soft);
+    font-size: .92rem; letter-spacing:.04em;
+    margin-bottom: 1.9rem;
+  }
+
+  /* ---- Section labels ---- */
+  .section{ margin-top: 2.1rem; }
+  .section-label{
+    display:flex; align-items:center; gap:.85rem;
+    color: var(--gold-soft);
+    font-size: .8rem; letter-spacing: .26em; text-transform: uppercase;
+    margin-bottom: 1rem; padding-left:.26em;
+  }
+  .section-label::before,
+  .section-label::after{
+    content:""; height:1px; flex:1 1 auto;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .section-label span{ flex: 0 0 auto; }
+
+  /* ---- Primary action links (application + registration) ---- */
+  .action{
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    text-decoration:none;
+    background: linear-gradient(180deg, var(--slate-2), var(--slate));
+    border: 1.5px solid var(--gold);
+    border-radius: 10px;
+    padding: 1.05rem 1.25rem;
+    margin-bottom: .9rem;
+    color: var(--parchment);
+    box-shadow: 0 8px 22px rgba(0,0,0,0.4);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  }
+  .action:hover, .action:focus-visible{
+    transform: translateY(-3px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.5), 0 0 0 1px var(--gold-soft);
+    border-color: var(--gold-soft);
+    outline: none;
+  }
+  .action .label{ display:flex; flex-direction:column; }
+  .action .title{
+    font-size: 1.18rem; font-weight: 700; letter-spacing:.01em;
+    color: var(--gold-soft);
+  }
+  .action .desc{ font-size: .9rem; color: var(--parchment); opacity:.85; }
+  .action .arrow{
+    font-size: 1.4rem; color: var(--gold);
+    flex: 0 0 auto; transition: transform .18s ease;
+  }
+  .action:hover .arrow{ transform: translateX(4px); }
+
+  /* ---- Alchemist roster ---- */
+  .roster{ display:grid; gap:.6rem; }
+  .alchemist{
+    display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    text-decoration:none;
+    background: rgba(42,58,82,0.4);
+    border: 1px solid rgba(199,154,59,0.4);
+    border-radius: 9px;
+    padding: .8rem 1.1rem;
+    color: var(--parchment);
+    transition: background .16s ease, border-color .16s ease, transform .16s ease;
+  }
+  .alchemist:hover, .alchemist:focus-visible{
+    background: rgba(52,73,106,0.7);
+    border-color: var(--gold-soft);
+    transform: translateX(3px);
+    outline: none;
+  }
+  .alchemist .a-name{ font-size: 1.05rem; color: var(--gold-soft); font-weight:600; }
+  .alchemist .a-craft{ font-size: .86rem; opacity:.82; font-style:italic; }
+  .alchemist .a-left{ display:flex; flex-direction:column; }
+  .alchemist .a-arrow{ color: var(--gold); flex:0 0 auto; }
+
+  .note{
+    margin-top: .4rem; font-size: .82rem; color: var(--amethyst);
+    opacity:.85; font-style:italic;
+  }
+
+  footer{
+    text-align:center; margin-top: 2.6rem;
+    color: var(--gold-soft); font-size: .82rem; letter-spacing:.12em;
+    opacity:.8;
+  }
+  footer .glyph{ font-size: 1.1rem; display:block; margin-bottom:.5rem; opacity:.9; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="frame">
+
+      <p class="eyebrow">Calling All Alchemists</p>
+
+      <div class="banner">
+        <h1>The Mount Shasta<br />Alchemy Faire</h1>
+      </div>
+
+      <p class="subtitle">One of Mount Shasta's biggest collectives of healers and visionaries, all in one place.</p>
+      <p class="meta">Sunday, July 19th &middot; Soul Connections Community Center &middot; 11am&ndash;5pm</p>
+
+      <!-- =======================================================
+           SECTION 1 — GUEST REGISTRATION
+           ======================================================= -->
+      <div class="section">
+        <div class="section-label"><span>Plan Your Visit</span></div>
+
+        <a class="action" href="https://forms.gle/Ze3TDzrw6gSG4G3C8" target="_blank" rel="noopener">
+          <span class="label">
+            <span class="title">Register to Attend</span>
+            <span class="desc">Admission is free &mdash; register to receive a crystal charged by the Alchemists at the door</span>
+          </span>
+          <span class="arrow">&rarr;</span>
+        </a>
+      </div>
+
+      <!-- =======================================================
+           SECTION 2 — JOIN AS AN ALCHEMIST
+           Replace #REPLACE with your alchemist application link.
+           ======================================================= -->
+      <div class="section">
+        <div class="section-label"><span>Join the Faire</span></div>
+
+        <a class="action" href="https://forms.gle/VRaKL1VnaAucwZbC6" target="_blank" rel="noopener">
+          <span class="label">
+            <span class="title">Apply to join as an Alchemist</span>
+            <span class="desc">Share your gifts as a vendor at the Alchemy Faire</span>
+          </span>
+          <span class="arrow">&rarr;</span>
+        </a>
+      </div>
+
+      <!-- =======================================================
+           SECTION 3 — THE ALCHEMISTS
+           Copy one <a class="alchemist"> block per person.
+           Fill in the name, their craft, and their website URL.
+           ======================================================= -->
+      <div class="section">
+        <div class="section-label"><span>Meet the Alchemists</span></div>
+
+        <div class="roster">
+          <!-- ALCHEMISTS START -->
+
+          <a class="alchemist" href="#REPLACE-alchemist-url" target="_blank" rel="noopener">
+            <span class="a-left">
+              <span class="a-name">Alchemist Name</span>
+              <span class="a-craft">their craft, e.g. crystal healing</span>
+            </span>
+            <span class="a-arrow">&rarr;</span>
+          </a>
+
+          <a class="alchemist" href="#REPLACE-alchemist-url" target="_blank" rel="noopener">
+            <span class="a-left">
+              <span class="a-name">Alchemist Name</span>
+              <span class="a-craft">their craft</span>
+            </span>
+            <span class="a-arrow">&rarr;</span>
+          </a>
+
+          <a class="alchemist" href="#REPLACE-alchemist-url" target="_blank" rel="noopener">
+            <span class="a-left">
+              <span class="a-name">Alchemist Name</span>
+              <span class="a-craft">their craft</span>
+            </span>
+            <span class="a-arrow">&rarr;</span>
+          </a>
+
+          <!-- ALCHEMISTS END -->
+        </div>
+        <p class="note">Duplicate one alchemist block above for each practitioner you want to list.</p>
+      </div>
+
+      <footer>
+        <span class="glyph">&#10059;</span>
+        Mount Shasta, California
+      </footer>
+
+    </div>
+  </div>
+</body>
+</html>
